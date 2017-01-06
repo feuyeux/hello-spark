@@ -10,22 +10,14 @@ Using simplest Java and Scala code to demonstrate spark's world
 6. GraphX
 
 ### Spark with the world
-
 1. spark with **Message-Driven** — [Kafka](http://kafka.apache.org/) and [RabbitMQ](https://www.rabbitmq.com/)
-
 2. spark with **Search Engine** — [ElasticSearch](https://www.elastic.co/products/elasticsearch)
-
 3. spark with **Deep learning** — [DL4J](https://deeplearning4j.org/) and [BigDL](https://github.com/intel-analytics/BigDL)
-
 4. spark with **Big Data**
-
    1. **Key-value Stores** — [Redis](redis.io)
    2. **Wide Column Stores** — [Cassandra]( cassandra.apache.org) and [HBase](hbase.apache.org)
    3. **Document Stores** — [MongoDB](https://www.mongodb.com/) and [Amazon DynamoDB](aws.amazon.com/dynamodb)
-
 5. spark with **Application** — [Spring Cloud Data Flow](http://cloud.spring.io/spring-cloud-dataflow/)
-
-
 
 ### Spark papers
 1. [Spark: Cluster Computing with Working Sets](paper/1.hotcloud_spark.pdf) June 2010
