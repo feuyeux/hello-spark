@@ -51,6 +51,5 @@ feuyeux/zookeeper-alpine
 ```
 docker run --rm -ti feuyeux/zookeeper-alpine zkCli -server zk1.io:2181,zk2.io:2181,zk3.io:2181
 
-[zk: 10.101.95.23:2181,10.189.193.225:2181,10.101.110.3:2181(CONNECTED) 0] ls /
-[zookeeper]
+ls /
 ```
