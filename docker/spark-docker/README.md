@@ -110,7 +110,7 @@ sudo docker run -d \
 feuyeux/spark-alpine worker
 ```
 
-### 2.4 查看zookeeper上的spark状态
+### 2.4 Check Spark status from zookeeper
 
 ```sh
 sudo docker run --rm -ti feuyeux/zookeeper-alpine bin/zkCli.sh -server $zk1:2181,$zk2:2181,$zk3:2181
@@ -122,7 +122,7 @@ ls /spark-recovery/leader_election
 ls /spark-recovery/master_status
 ```
 
-### 2.5 计算测试
+### 2.5 Test
 ```sh
 sudo docker run --rm -ti feuyeux/spark-alpine \
 bin/spark-submit \
