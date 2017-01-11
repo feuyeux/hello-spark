@@ -18,6 +18,7 @@ Using simplest Java and Scala code to demonstrate spark's world
    2. **Wide Column Stores** — [Cassandra]( cassandra.apache.org) and [HBase](hbase.apache.org)
    3. **Document Stores** — [MongoDB](https://www.mongodb.com/) and [Amazon DynamoDB](aws.amazon.com/dynamodb)
 5. spark with **Application** — [Spring Cloud Data Flow](http://cloud.spring.io/spring-cloud-dataflow/)
+6. spark with **[Docker](docker)**
 
 ### Spark papers
 1. [Spark: Cluster Computing with Working Sets](paper/1.hotcloud_spark.pdf) June 2010
