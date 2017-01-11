@@ -19,34 +19,44 @@ docker push feuyeux/spark-alpine
 
 ## 2 Cluster
 
-### 2.1 /etc/hosts
+### 2.0 Clean
 ```
-10.101.xx.xx zk1.io
-10.101.xx.xx zk2.io
-10.101.xx.xx zk3.io
-10.101.xx.xx skm1.io
-10.101.xx.xx skm2.io
-10.101.xx.xx skw1.io
-10.101.xx.xx skw2.io
-10.101.xx.xx skw3.io
+sudo docker kill $(sudo docker ps -aq)
+sudo docker rm $(sudo docker ps -aq)
+sudo docker images|grep none|awk '{print $3 }'|xargs sudo docker rmi
+```
+
+### 2.1 Env Variable
+```
+zk1=10.101.xx.aa 
+skw2=10.101.xx.aa
+zk2=10.101.xx.bb
+skw3=10.101.xx.bb
+zk3=10.101.xx.cc
+skw4=10.101.xx.cc
+skm1=10.101.xx.dd
+skw5=10.101.xx.dd
+skm2=10.101.xx.ee
+skw6=10.101.xx.ee
+skw1=10.101.xx.ff
 ```
 
 ### 2.2 Spark Master
 ```
 sudo docker run -d \
---name skm1.io \
+--name skm1 \
 --net=host \
--e SPARK_MASTER_HOST=skm1.io \
--e ZK=zk1.io:2181,zk2.io:2181,zk3.io:2181 \
+-e SPARK_MASTER_HOST=$skm1 \
+-e ZK=$zk1:2181,$zk2:2181,$zk3:2181 \
 feuyeux/spark-alpine master
 ```
 
 ```
 sudo docker run -d \
---name skm2.io \
+--name skm2 \
 --net=host \
--e SPARK_MASTER_HOST=skm2.io \
--e ZK=zk1.io:2181,zk2.io:2181,zk3.io:2181 \
+-e SPARK_MASTER_HOST=$skm2 \
+-e ZK=$zk1:2181,$zk2:2181,$zk3:2181 \
 feuyeux/spark-alpine master
 ```
 
@@ -54,32 +64,56 @@ feuyeux/spark-alpine master
 
 ```
 sudo docker run -d \
---name skw1.io \
+--name skw1 \
 --net=host \
--e SPARK_MASTER_URL=spark://skm1.io:7077,skm2.io:7077 \
-feuyeux/spark-alpine master
+-e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
+feuyeux/spark-alpine worker
 ```
 
 ```
 sudo docker run -d \
---name skw2.io \
+--name skw2 \
 --net=host \
--e SPARK_MASTER_URL=spark://skm1.io:7077,skm2.io:7077 \
-feuyeux/spark-alpine master
+-e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
+feuyeux/spark-alpine worker
 ```
 
 ```
 sudo docker run -d \
---name skw3.io \
+--name skw3 \
 --net=host \
--e SPARK_MASTER_URL=spark://skm1.io:7077,skm2.io:7077 \
-feuyeux/spark-alpine master
+-e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
+feuyeux/spark-alpine worker
+```
+
+```
+sudo docker run -d \
+--name skw4 \
+--net=host \
+-e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
+feuyeux/spark-alpine worker
+```
+
+```
+sudo docker run -d \
+--name skw5 \
+--net=host \
+-e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
+feuyeux/spark-alpine worker
+```
+
+```
+sudo docker run -d \
+--name skw6 \
+--net=host \
+-e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
+feuyeux/spark-alpine worker
 ```
 
 ### 2.4 查看zookeeper上的spark状态
 
 ```
-docker run --rm -ti feuyeux/zookeeper-alpine zkCli -server zk1.io:2181,zk2.io:2181,zk3.io:2181
+sudo docker run --rm -ti feuyeux/zookeeper-alpine bin/zkCli.sh -server $zk1:2181,$zk2:2181,$zk3:2181
 ```
 
 ```
@@ -90,17 +124,17 @@ ls /spark-recovery/master_status
 
 ### 2.5 计算测试
 ```
-docker run --rm -ti feuyeux/spark-alpine \
+sudo docker run --rm -ti feuyeux/spark-alpine \
 bin/spark-submit \
---master spark://skm1.io:7077,skm2.io:7077 \
+--master spark://$skm1:7077,$skm2:7077 \
 examples/src/main/python/pi.py 13
 ```
 
 ```
-docker run --rm -ti feuyeux/spark-alpine \
+sudo docker run --rm -ti feuyeux/spark-alpine \
 bin/spark-submit \
 --class org.apache.spark.examples.SparkPi \
---master spark://skm1.io:7077,skm2.io:7077 \
+--master spark://$skm1:7077,$skm2:7077 \
 --driver-memory 1g \
 --executor-memory 4g \
 --executor-cores 4 \
