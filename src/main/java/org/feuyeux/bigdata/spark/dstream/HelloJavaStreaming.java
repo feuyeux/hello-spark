@@ -1,4 +1,4 @@
-package org.feuyeux.bigdata.spark;
+package org.feuyeux.bigdata.spark.dstream;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.streaming.Durations;
