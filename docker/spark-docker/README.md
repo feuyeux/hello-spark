@@ -1,17 +1,17 @@
 ## 1 feuyeux/spark-alpine
 
 ### 1.1 build
-```
+```sh
 docker build -t spark .
 ```
 
 ### 1.2 run
-```
+```sh
 docker run --rm -ti spark ./bin/run-example SparkPi
 ```
 
 ### 1.3 push
-```
+```sh
 docker tag spark feuyeux/spark-alpine
 docker login --username=feuyeux
 docker push feuyeux/spark-alpine
@@ -20,13 +20,14 @@ docker push feuyeux/spark-alpine
 ## 2 Cluster
 
 ### 2.0 Clean
-```
+```sh
 sudo docker kill $(sudo docker ps -aq)
 sudo docker rm $(sudo docker ps -aq)
 sudo docker images|grep none|awk '{print $3 }'|xargs sudo docker rmi
 ```
 
 ### 2.1 Env Variable
+```sh
 
 ```
 zk1=10.101.xx.aa 
@@ -43,8 +44,7 @@ skw1=10.101.xx.ff
 ```
 
 ### 2.2 Spark Master
-#### 2.2.1 Start Server
-```
+```sh
 sudo docker run -d \
 --name skm1 \
 --net=host \
@@ -53,7 +53,7 @@ sudo docker run -d \
 feuyeux/spark-alpine master
 ```
 
-```
+```sh
 sudo docker run -d \
 --name skm2 \
 --net=host \
@@ -80,7 +80,7 @@ http://skm2.io:8080/
 
 ### 2.3 Spark Worker
 
-```
+```sh
 sudo docker run -d \
 --name skw1 \
 --net=host \
@@ -88,7 +88,7 @@ sudo docker run -d \
 feuyeux/spark-alpine worker
 ```
 
-```
+```sh
 sudo docker run -d \
 --name skw2 \
 --net=host \
@@ -96,7 +96,7 @@ sudo docker run -d \
 feuyeux/spark-alpine worker
 ```
 
-```
+```sh
 sudo docker run -d \
 --name skw3 \
 --net=host \
@@ -104,7 +104,7 @@ sudo docker run -d \
 feuyeux/spark-alpine worker
 ```
 
-```
+```sh
 sudo docker run -d \
 --name skw4 \
 --net=host \
@@ -112,7 +112,7 @@ sudo docker run -d \
 feuyeux/spark-alpine worker
 ```
 
-```
+```sh
 sudo docker run -d \
 --name skw5 \
 --net=host \
@@ -120,7 +120,7 @@ sudo docker run -d \
 feuyeux/spark-alpine worker
 ```
 
-```
+```sh
 sudo docker run -d \
 --name skw6 \
 --net=host \
