@@ -11,11 +11,14 @@ import scala.Tuple2;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
+/**
+ * https://spark.apache.org/docs/latest/streaming-programming-guide.html
+ * nc -lk 9333
+ */
 public class HelloJavaStreaming {
     public static void main(String[] args) throws InterruptedException {
         SparkConf conf = new SparkConf()
-                .setMaster("local[*]").setSparkHome(HelloSpark.SPARK_HOME)
+                .setMaster("local[*]")
                 .setAppName("HelloJavaStreaming");
 
         JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(5));

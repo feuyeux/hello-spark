@@ -27,6 +27,7 @@ sudo docker images|grep none|awk '{print $3 }'|xargs sudo docker rmi
 ```
 
 ### 2.1 Env Variable
+
 ```
 zk1=10.101.xx.aa 
 skw2=10.101.xx.aa
@@ -42,6 +43,7 @@ skw1=10.101.xx.ff
 ```
 
 ### 2.2 Spark Master
+#### 2.2.1 Start Server
 ```
 sudo docker run -d \
 --name skm1 \
@@ -59,6 +61,22 @@ sudo docker run -d \
 -e ZK=$zk1:2181,$zk2:2181,$zk3:2181 \
 feuyeux/spark-alpine master
 ```
+
+#### 2.2.2 Check status from Zookeeper
+
+```
+sudo docker run --rm -ti feuyeux/zookeeper-alpine bin/zkCli.sh -server $zk1:2181,$zk2:2181,$zk3:2181
+```
+
+```
+ls /spark-recovery/leader_election
+
+ls /spark-recovery/master_status
+```
+
+#### 2.2.3 Web UI
+http://skm1.io:8080/
+http://skm2.io:8080/
 
 ### 2.3 Spark Worker
 
@@ -110,25 +128,7 @@ sudo docker run -d \
 feuyeux/spark-alpine worker
 ```
 
-### 2.4 查看zookeeper上的spark状态
-
-```
-sudo docker run --rm -ti feuyeux/zookeeper-alpine bin/zkCli.sh -server $zk1:2181,$zk2:2181,$zk3:2181
-```
-
-```
-ls /spark-recovery/leader_election
-
-ls /spark-recovery/master_status
-```
-
-### 2.5 计算测试
-```
-sudo docker run --rm -ti feuyeux/spark-alpine \
-bin/spark-submit \
---master spark://$skm1:7077,$skm2:7077 \
-examples/src/main/python/pi.py 13
-```
+### 2.4 Testing
 
 ```
 sudo docker run --rm -ti feuyeux/spark-alpine \

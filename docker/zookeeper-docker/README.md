@@ -71,7 +71,7 @@ feuyeux/zookeeper-alpine
 
 ### 2.3 Test
 ```
-sudo docker run --rm -ti feuyeux/zookeeper-alpine zkCli -server $zk1:2181,$zk2:2181,$zk3:2181
+sudo docker run --rm -ti feuyeux/zookeeper-alpine bin/zkCli.sh -server $zk1:2181,$zk2:2181,$zk3:2181
 
 ls /
 ```
