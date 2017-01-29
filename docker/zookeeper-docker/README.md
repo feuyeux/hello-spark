@@ -22,17 +22,9 @@ sudo docker images|grep none|awk '{print $3 }'|xargs sudo docker rmi
 
 ### 2.1 Env Variable
 ```
-zk1=10.101.xx.aa 
-skw2=10.101.xx.aa
-zk2=10.101.xx.bb
-skw3=10.101.xx.bb
-zk3=10.101.xx.cc
-skw4=10.101.xx.cc
-skm1=10.101.xx.dd
-skw5=10.101.xx.dd
-skm2=10.101.xx.ee
-skw6=10.101.xx.ee
-skw1=10.101.xx.ff
+zk1=10.101.88.235
+zk2=10.101.90.9
+zk3=10.101.89.3
 ```
 
 ### 2.2 Run

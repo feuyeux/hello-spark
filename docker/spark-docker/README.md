@@ -28,20 +28,25 @@ sudo docker images|grep none|awk '{print $3 }'|xargs sudo docker rmi
 
 ### 2.1 Env Variable
 ```sh
+zk1=10.101.88.235
+skw1=10.101.88.235
+zk2=10.101.90.9
+skw2=10.101.90.9
+zk3=10.101.89.3
+skw3=10.101.89.3
+skm1=10.101.95.107
+skw4=10.101.95.107
+skm2=10.101.86.136
+skw5=10.101.86.136
+```
 
-```
-zk1=10.101.xx.aa 
-skw2=10.101.xx.aa
-zk2=10.101.xx.bb
-skw3=10.101.xx.bb
-zk3=10.101.xx.cc
-skw4=10.101.xx.cc
-skm1=10.101.xx.dd
-skw5=10.101.xx.dd
-skm2=10.101.xx.ee
-skw6=10.101.xx.ee
-skw1=10.101.xx.ff
-```
+| NO   | IP            | 备注        |
+| :--- | :------------ | :-------- |
+| 1    | 10.101.88.235 | zk1 skw1  |
+| 2    | 10.101.90.9   | zk2 skw2  |
+| 3    | 10.101.89.3   | zk3 skw3  |
+| 4    | 10.101.95.107 | skm1 skw4 |
+| 5    | 10.101.86.136 | skm2 skw5 |
 
 ### 2.2 Spark Master
 ```sh
@@ -115,14 +120,6 @@ feuyeux/spark-alpine worker
 ```sh
 sudo docker run -d \
 --name skw5 \
---net=host \
--e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
-feuyeux/spark-alpine worker
-```
-
-```sh
-sudo docker run -d \
---name skw6 \
 --net=host \
 -e SPARK_MASTER_URL=spark://$skm1:7077,$skm2:7077 \
 feuyeux/spark-alpine worker
